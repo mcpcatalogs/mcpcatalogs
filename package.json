@@ -1,6 +1,6 @@
 {
   "name": "mcpcatalogs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Query the mcpcatalogs.com directory of MCP servers — search, compare, top-list, full details — directly from any MCP-aware AI client.",
   "license": "MIT",
   "type": "module",
