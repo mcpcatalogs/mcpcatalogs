@@ -1,0 +1,48 @@
+{
+  "name": "mcpcatalogs",
+  "version": "0.1.0",
+  "description": "Query the mcpcatalogs.com directory of MCP servers — search, compare, top-list, full details — directly from any MCP-aware AI client.",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "mcpcatalogs": "dist/index.js"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "directory",
+    "search",
+    "ai-tools",
+    "claude",
+    "anthropic"
+  ],
+  "homepage": "https://mcpcatalogs.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mcpcatalogs/mcpcatalogs"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "@supabase/supabase-js": "^2.45.0",
+    "zod": "^3.23.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.5.0"
+  }
+}

@@ -1,0 +1,10 @@
+# Files we don't ship to end users via npm. The package.json `files` field
+# already restricts to dist/ + README.md, but .npmignore acts as a belt-and-
+# suspenders defense if `files` is ever removed.
+
+src/
+node_modules/
+.github/
+tsconfig.json
+*.log
+.env*

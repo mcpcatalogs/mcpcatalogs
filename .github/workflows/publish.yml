@@ -1,0 +1,37 @@
+name: Publish to npm
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: "https://registry.npmjs.org"
+
+      - run: npm ci
+
+      - run: npm run build
+
+      # Sanity-check: refuse to publish if the embedded anon key is still the
+      # placeholder. The npm package needs to work zero-config for end users.
+      - name: Verify anon key is set
+        run: |
+          if grep -q "REPLACE_BEFORE_PUBLISH" dist/db.js; then
+            echo "::error::EMBEDDED_ANON_KEY is still the placeholder. Set it in src/db.ts before tagging a release."
+            exit 1
+          fi
+
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
