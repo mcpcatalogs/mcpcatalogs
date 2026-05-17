@@ -23,11 +23,13 @@ jobs:
 
       - run: npm run build
 
-      # Sanity-check: refuse to publish if the embedded anon key is still the
-      # placeholder. The npm package needs to work zero-config for end users.
+      # Sanity-check: refuse to publish if the embedded anon key assignment is
+      # still the placeholder. We target only the assignment line — the same
+      # string also appears in the runtime guard (`=== "REPLACE_BEFORE_PUBLISH"`)
+      # by design, so a naive grep would false-positive.
       - name: Verify anon key is set
         run: |
-          if grep -q "REPLACE_BEFORE_PUBLISH" dist/db.js; then
+          if grep -qE 'EMBEDDED_ANON_KEY\s*=\s*"REPLACE_BEFORE_PUBLISH"' dist/db.js; then
             echo "::error::EMBEDDED_ANON_KEY is still the placeholder. Set it in src/db.ts before tagging a release."
             exit 1
           fi
